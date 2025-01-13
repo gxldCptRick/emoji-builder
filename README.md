@@ -93,7 +93,7 @@ Allows you to emojify your messages using files if you don't want the message to
 
 ### input.yaml
 
-Yamlm files with the only requirements being a `message` key but allows you to override the following:
+Yaml files with the only requirements being a `message` key but allows you to override the following:
 - `background`
 - `foreground`
 - `width`
