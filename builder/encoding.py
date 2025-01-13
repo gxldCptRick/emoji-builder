@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import TypedDict
 
 
 class Token(ABC):
@@ -23,6 +24,28 @@ class Token(ABC):
         return "\n".join("".join(row) for row in char_map)
 
 
+class TokenEntry(TypedDict):
+    cls: type[Token]
+    is_special: bool
+
+
+TOKEN_MAP: dict[str, TokenEntry] = {}
+
+
+def register(pattern: str, is_special: bool = False):
+    is_special = is_special or len(pattern) > 1
+
+    def decorator(cls):
+        TOKEN_MAP[pattern] = {
+            "cls": cls,
+            "is_special": is_special,
+        }
+        return cls
+
+    return decorator
+
+
+@register("A")
 class AToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -38,6 +61,7 @@ class AToken(Token):
         )
 
 
+@register("B")
 class BToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -54,6 +78,7 @@ class BToken(Token):
         )
 
 
+@register("C")
 class CToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -69,6 +94,7 @@ class CToken(Token):
         )
 
 
+@register("D")
 class DToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -85,6 +111,7 @@ class DToken(Token):
         )
 
 
+@register("E")
 class EToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -101,6 +128,7 @@ class EToken(Token):
         )
 
 
+@register("F")
 class FToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -117,6 +145,7 @@ class FToken(Token):
         )
 
 
+@register("G")
 class GToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -134,6 +163,7 @@ class GToken(Token):
         )
 
 
+@register("H")
 class HToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -150,6 +180,7 @@ class HToken(Token):
         )
 
 
+@register("I")
 class IToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -166,6 +197,7 @@ class IToken(Token):
         )
 
 
+@register("J")
 class JToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -182,6 +214,7 @@ class JToken(Token):
         )
 
 
+@register("K")
 class KToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -198,6 +231,7 @@ class KToken(Token):
         )
 
 
+@register("L")
 class LToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -214,6 +248,7 @@ class LToken(Token):
         )
 
 
+@register("M")
 class MToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -229,6 +264,7 @@ class MToken(Token):
         )
 
 
+@register("N")
 class NToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -244,6 +280,7 @@ class NToken(Token):
         )
 
 
+@register("O")
 class OToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -259,6 +296,7 @@ class OToken(Token):
         )
 
 
+@register("P")
 class PToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -274,6 +312,7 @@ class PToken(Token):
         )
 
 
+@register("Q")
 class QToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -289,6 +328,7 @@ class QToken(Token):
         )
 
 
+@register("R")
 class RToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -305,6 +345,7 @@ class RToken(Token):
         )
 
 
+@register("S")
 class SToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -321,6 +362,7 @@ class SToken(Token):
         )
 
 
+@register("T")
 class TToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -336,6 +378,7 @@ class TToken(Token):
         )
 
 
+@register("U")
 class UToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -351,6 +394,7 @@ class UToken(Token):
         )
 
 
+@register("V")
 class VToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -366,6 +410,7 @@ class VToken(Token):
         )
 
 
+@register("W")
 class WToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -381,6 +426,7 @@ class WToken(Token):
         )
 
 
+@register("X")
 class XToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -396,6 +442,7 @@ class XToken(Token):
         )
 
 
+@register("Y")
 class YToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -411,6 +458,7 @@ class YToken(Token):
         )
 
 
+@register("Z")
 class ZToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -426,6 +474,7 @@ class ZToken(Token):
         )
 
 
+@register("<3", is_special=True)
 class HeartToken(Token):
 
     def render(self, width: int) -> str:
@@ -443,6 +492,7 @@ class HeartToken(Token):
         return self.render_map(width, bitmap)
 
 
+@register(" ", is_special=True)
 class SpaceToken(Token):
     def render(self, width: int) -> str:
         return self.render_map(
@@ -455,6 +505,7 @@ class SpaceToken(Token):
         )
 
 
+@register("@", is_special=True)
 class ATToken(Token):
     def render(self, width: int) -> str:
         # TODO: Make @ sign with it
@@ -472,6 +523,7 @@ class ATToken(Token):
         )
 
 
+@register("D:", is_special=True)
 class DFaceToken(Token):
     def render(self, width: int) -> str:
         # TODO: MAke D Face
@@ -489,40 +541,7 @@ class DFaceToken(Token):
         )
 
 
-TOKEN_MAP = {
-    "A": AToken,
-    "B": BToken,
-    "C": CToken,
-    "D": DToken,
-    "E": EToken,
-    "F": FToken,
-    "G": GToken,
-    "H": HToken,
-    "I": IToken,
-    "J": JToken,
-    "K": KToken,
-    "L": LToken,
-    "M": MToken,
-    "N": NToken,
-    "O": OToken,
-    "P": PToken,
-    "Q": QToken,
-    "R": RToken,
-    "S": SToken,
-    "T": TToken,
-    "U": UToken,
-    "V": VToken,
-    "W": WToken,
-    "X": XToken,
-    "Y": YToken,
-    "Z": ZToken,
-    "<3": HeartToken,
-    " ": SpaceToken,
-    "@": ATToken,
-    "D:": DFaceToken,
-}
-
-SPECIAL_TOKENS = {"<3", "@", "D:"}
+SPECIAL_TOKENS = {key for key, value in TOKEN_MAP.items() if value["is_special"]}
 
 
 def tokenize(
@@ -534,14 +553,16 @@ def tokenize(
 
     for segment in message.split(" "):
         if segment in SPECIAL_TOKENS:
-            tokens.append(TOKEN_MAP[segment](background, foreground))
+            tokens.append(TOKEN_MAP[segment]["cls"](background, foreground))
         else:
             for char in segment:
                 try:
-                    tokens.append(TOKEN_MAP[char.upper()](background, foreground))
+                    tokens.append(
+                        TOKEN_MAP[char.upper()]["cls"](background, foreground)
+                    )
                 except KeyError:
                     pass
-        tokens.append(TOKEN_MAP[" "](background, foreground))
+        tokens.append(TOKEN_MAP[" "]["cls"](background, foreground))
 
     tokens.pop()  # Remove the last space
 
