@@ -1,3 +1,10 @@
+"""
+Base module for all tokens that can transforms a string into an emoji
+All characters we transform create their own subclass of Token.
+
+We also have a registry where we manage the tokens and allow you to map your own tokens to encode messages you want.
+"""
+
 from abc import ABC, abstractmethod
 from typing import TypedDict
 
