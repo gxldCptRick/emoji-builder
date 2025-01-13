@@ -1,3 +1,6 @@
 .venv/
 __pycache__/
 output.txt
+input.json
+input.yaml
+input.txt

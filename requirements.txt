@@ -1,2 +1,4 @@
 click
 pyperclip
+pyyaml
+pydantic
