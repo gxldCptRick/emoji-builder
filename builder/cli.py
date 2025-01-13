@@ -66,10 +66,5 @@ def load_file(filename: str):
 @click.option("--output-file", "-o")
 def transform_from_file(input_file: str, output_file: str | None = None):
     values = load_file(input_file)
-    return tokenize_and_save_to_file(
-        background=values.background,
-        foreground=values.foreground,
-        message=values.message,
-        filename=output_file or values.output,
-        width=values.width,
-    )
+    values.output = output_file or values.output
+    return tokenize_and_save_to_file(values)
