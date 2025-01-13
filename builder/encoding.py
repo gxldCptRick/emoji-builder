@@ -36,6 +36,10 @@ def register(pattern: str, is_special: bool = False):
     is_special = is_special or len(pattern) > 1
 
     def decorator(cls):
+        if pattern in TOKEN_MAP:
+            # we skip the registration
+            return cls
+
         TOKEN_MAP[pattern] = {
             "cls": cls,
             "is_special": is_special,
